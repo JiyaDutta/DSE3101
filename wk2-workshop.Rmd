@@ -15,22 +15,39 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+wk2_stocks <- readRDS("~/DSE3101/wk2_stocks.rds")
+str(wk2_stocks)
 ```
 
-## Including Plots
+### stats on returns 
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+sum(wk2_stocks$SPY_returns)*100
 ```
+The cumulative returns of the S&P index during this period is `r round(sum(wk2_stocks$SPY_returns)*100; 2)`%.
+```{r}
+mean(wk2_stocks$SPY_returns)*100
+```
+The average daily returns of the S&P index during this period is `r round(mean(wk2_stocks$SPY_returns)*100; 2)`%.
+```{r}
+sd(wk2_stocks$SPY_returns)*100
+```
+The average daily returns of the S&P index during this period is `r round(sd(wk2_stocks$SPY_returns)*100; 2)`%.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### S&P prices
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+ggplot(data = wk2_stocks, aes(x = wk2_stocks, y = wk2_stocks$SPY_prices)) +
+  geom_line()
+```
+### S&P Yearly returns
+```{r}
+wk2_stocks %>%
+  mutate(year = year(date)) %>%
+  group_by(year) %>%
+  summarise(yr_return = sum(SPY_returns)*100)
+ggplot(aes(x = year, y = yr_return)) +
+  geom_col()
+```

@@ -3,36 +3,37 @@ dse trial
 jiya
 2024-01-24
 
-- [R Markdown](#r-markdown)
-- [Including Plots](#including-plots)
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that
-includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
-
 ``` r
-summary(cars)
+wk2_stocks <- readRDS("~/DSE3101/wk2_stocks.rds")
+str(wk2_stocks)
 ```
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+    ## 'data.frame':    5798 obs. of  4 variables:
+    ##  $ SPY_prices : num  88.1 87.1 84.3 84.9 84.7 ...
+    ##  $ SPY_returns: num  0.04804 -0.01076 -0.03264 0.00774 -0.00264 ...
+    ##  $ SPY_vol    : num  88.1 87.1 84.3 84.9 84.7 ...
+    ##  $ date       : Date, format: "2001-01-03" "2001-01-04" ...
 
-## Including Plots
+``` r
+sum(wk2_stocks$SPY_returns)
+```
 
-You can also embed plots, for example:
+    ## [1] 2.183304
 
-![](wk2-workshop_files/figure-gfm/pressure-1.png)<!-- -->
+``` r
+mean(wk2_stocks$SPY_returns)
+```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+    ## [1] 0.0003765616
+
+``` r
+sd(wk2_stocks$SPY_returns)
+```
+
+    ## [1] 0.01221943
+
+``` r
+plot(wk2_stocks$SPY_prices)
+```
+
+![](wk2-workshop_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
